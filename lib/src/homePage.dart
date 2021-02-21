@@ -2,6 +2,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_projects/src/bottomNavigationBarPages/CommunityWidget.dart';
+import 'package:flutter_projects/src/bottomNavigationBarPages/SettingsWidget.dart';
+import 'bottomNavigationBarPages/CalendarWidget.dart';
+import 'package:flutter_projects/src/otherStuff/TwoLetterIcon.dart';
+import 'package:group_list_view/group_list_view.dart';
+
+import 'bottomNavigationBarPages/SubjectWidget.dart';
+import 'dataBaseClasses/SubjectProvider.dart';
+
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -15,9 +24,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>{
 
   int _currentIndex = 0;
+  final List<Widget> _children = [
+    SubjectWidget(),
+    CalendarWidget(),
+    CommunityWidget(),
+    SettingsWidget()
+  ];
 
   void initState() {
-
     super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -36,6 +50,8 @@ class _HomePageState extends State<HomePage>{
 
   Widget _bottomNavigationBar() {
     return BottomNavigationBar(
+      onTap: onTabTapped,
+      currentIndex: _currentIndex,
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -58,15 +74,13 @@ class _HomePageState extends State<HomePage>{
             backgroundColor: Colors.green[600]
         )
       ],
-      currentIndex: _currentIndex,
-      onTap: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
     );
   }
-
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +105,7 @@ class _HomePageState extends State<HomePage>{
           )
         ],
       ),
-      body: Container(),
+      body: _children[_currentIndex],
       bottomNavigationBar: _bottomNavigationBar()
     );
   }
