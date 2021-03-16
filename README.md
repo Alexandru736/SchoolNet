@@ -16,4 +16,4 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 
-![screenshot1](/screenshots/schoolnet_ss1.jpg)
+![screenshot1](/screenshots/schoolnet_ss1.jpg = 20x10)
